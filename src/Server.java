@@ -1,6 +1,7 @@
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.net.*;
 
 public class Server {
     private ServerSocket serverSocket;
@@ -34,9 +35,24 @@ public class Server {
         }
     }
 
-    public static void main(String[] args) throws IOException{
-        ServerSocket socket = new ServerSocket(1234);
-        Server server = new Server(socket);
-        server.startServer();
+    public static void main(String[] args){
+        try {
+            ServerSocket socket = new ServerSocket();
+            socket.bind(new InetSocketAddress(1025));
+            Server server = new Server(socket);
+            InetAddress iAddress = null;
+            try {
+                iAddress = InetAddress.getLocalHost();
+            } catch (UnknownHostException e) {
+                throw new RuntimeException(e);
+            }
+            String server_IP;
+            server_IP = iAddress.getHostAddress();
+            System.out.println("Server IP address : " +server_IP);
+            server.startServer();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
 }

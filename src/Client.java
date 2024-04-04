@@ -1,4 +1,5 @@
 import java.io.*;
+import java.net.InetAddress;
 import java.net.Socket;
 import java.util.Scanner;
 
@@ -76,7 +77,7 @@ public class Client {
         Scanner scanner = new Scanner(System.in);
         System.out.print("Enter your username for the group chat: ");
         String username = scanner.nextLine();
-        Socket socket = new Socket("localhost", 1234);
+        Socket socket = new Socket("", 1205);
         Client client = new Client(socket, username);
 
         //separate threads running at the same time
